@@ -105,7 +105,7 @@ def track_visitors():
     live_now = max(len(active_heartbeats), 1)
     return total_visits, live_now
 
-# ----------------- YouTube Autoplay / Loop Builder -----------------
+# ----------------- Robust Video URL Generator (Web & Mobile Compliant) -----------------
 def clean_yt_ids_and_build_src(val):
     if not val:
         return ""
@@ -121,9 +121,11 @@ def clean_yt_ids_and_build_src(val):
 
     first_id = ids[0]
     playlist_ids = ",".join(ids) if len(ids) > 1 else first_id
+    
+    # playsinline=1, mute=1, and enablejsapi=1 ensure seamless autoplay on remote web deployments
     embed_src = (
         f"https://www.youtube-nocookie.com/embed/{first_id}"
-        f"?autoplay=1&mute=1&controls=1&modestbranding=1&rel=0&loop=1&playlist={playlist_ids}"
+        f"?autoplay=1&mute=1&controls=1&modestbranding=1&rel=0&loop=1&playsinline=1&enablejsapi=1&playlist={playlist_ids}"
     )
     return embed_src
 
@@ -453,7 +455,7 @@ elif st.session_state.view_mode == "display":
     .place-badge { font-weight: 800; border-radius: 2px; font-size: 11.5px; }
     .gold-bg { background: #fef08a; color: #854d0e; }
     .silver-bg { background: #f1f5f9; color: #334155; }
-    .bronze-bg { background: #fed7aa; color: #9a3412; }}
+    .bronze-bg { background: #fed7aa; color: #9a3412; }
     .mini-house-badge { display: inline-block; padding: 2px 4px; border-radius: 3px; font-size: 10.5px; font-weight: 800; }
 
     .visitor-footer-bar { display: flex; justify-content: center; align-items: center; padding: 3px 8px; width: 100%; background: #cbd5e1; flex-shrink: 0; }
