@@ -105,7 +105,7 @@ def track_visitors():
     live_now = max(len(active_heartbeats), 1)
     return total_visits, live_now
 
-# ----------------- Robust Video URL Generator (Web & Mobile Compliant) -----------------
+# ----------------- YouTube Autoplay / Loop Builder (Online-Safe) -----------------
 def clean_yt_ids_and_build_src(val):
     if not val:
         return ""
@@ -121,11 +121,9 @@ def clean_yt_ids_and_build_src(val):
 
     first_id = ids[0]
     playlist_ids = ",".join(ids) if len(ids) > 1 else first_id
-    
-    # playsinline=1, mute=1, and enablejsapi=1 ensure seamless autoplay on remote web deployments
     embed_src = (
         f"https://www.youtube-nocookie.com/embed/{first_id}"
-        f"?autoplay=1&mute=1&controls=1&modestbranding=1&rel=0&loop=1&playsinline=1&enablejsapi=1&playlist={playlist_ids}"
+        f"?autoplay=1&mute=1&controls=1&modestbranding=1&rel=0&loop=1&playsinline=1&enablejsapi=1&origin=*&playlist={playlist_ids}"
     )
     return embed_src
 
@@ -523,6 +521,7 @@ elif st.session_state.view_mode == "display":
                     title="Highlights" 
                     frameborder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen>
                 </iframe>
                 
@@ -531,6 +530,7 @@ elif st.session_state.view_mode == "display":
                     title="Live Stream" 
                     frameborder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen>
                 </iframe>
                 
